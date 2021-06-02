@@ -46,19 +46,7 @@ unix {
 INCLUDEPATH += "/Users/satouhiroshiki/boost/boost_1_76_0/"
 
 
-#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../builds/build-nmfUtilitites-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfUtilities.1.0.0
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../builds/build-nmfUtilitites-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfUtilities.1.0.0
-#else:unix: LIBS += -L$$PWD/../../../../builds/build-nmfUtilitites-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfUtilities.1.0.0
 
-#INCLUDEPATH += $$PWD/../nmfUtilities
-#DEPENDPATH += $$PWD/../nmfUtilities
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfUtilities.1.0.0
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfUtilities.1.0.0
-else:unix: LIBS += -L$$PWD/../../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfUtilities.1.0.0
-
-INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
-DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfDatabase.1.0.0
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfDatabase.1.0.0
@@ -97,6 +85,9 @@ DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
 
 
 
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfUtilities.1.0.0
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfUtilities.1.0.0
+else:unix: LIBS += -L$$PWD/../../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfUtilities.1.0.0
 
-
-
+INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
+DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
