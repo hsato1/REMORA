@@ -46,14 +46,13 @@ unix {
 INCLUDEPATH += /Users/hiro/Downloads/boost_1_76_0
 
 
-
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfUtilities.1.0.0
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfUtilities.1.0.0
 else:unix: LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfUtilities.1.0.0
 
 INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
 DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
+
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfDatabase.1.0.0
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfDatabase.1.0.0
@@ -68,3 +67,30 @@ else:unix: LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_2_cla
 
 INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
 DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
+
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_1_GCC_64bit-Release/release/ -lnmfUtilities
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_1_GCC_64bit-Release/debug/ -lnmfUtilities
+#else:unix: LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_1_GCC_64bit-Release/ -lnmfUtilities
+
+#INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
+#DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_1_GCC_64bit-Release/release/ -lnmfDatabase
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_1_GCC_64bit-Release/debug/ -lnmfDatabase
+#else:unix: LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_1_GCC_64bit-Release/ -lnmfDatabase
+
+#INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfDatabase
+#DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfDatabase
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_1_GCC_64bit-Release/release/ -lnmfCharts
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_1_GCC_64bit-Release/debug/ -lnmfCharts
+#else:unix: LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_1_GCC_64bit-Release/ -lnmfCharts
+
+#INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
+#DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
+
+
+
+
+
