@@ -60,12 +60,18 @@ REMORA_UI::REMORA_UI(
     MModeHarvestTypeLBL      = m_TopLevelWidget->findChild<QLabel*      >("MModeHarvestTypeLBL");
     MModePctMSYLBL           = m_TopLevelWidget->findChild<QLabel*      >("MModePctMSYLBL");
     MModeForecastPlotTypeCMB = m_TopLevelWidget->findChild<QComboBox*   >("MModeForecastPlotTypeCMB");
+    MModePlotTypeScaleCMB    = m_TopLevelWidget->findChild<QComboBox*   >("MModPlotScaleFactorCMB");
+    InitializeScaleFactors();
     MModeForecastPlotTypeLB  = m_TopLevelWidget->findChild<QLabel*      >("MModeForecastPlotTypeLB");
     MModeYAxisLockCB         = m_TopLevelWidget->findChild<QCheckBox*   >("MModeYAxisLockCB");
     MModeForecastTypeLB      = m_TopLevelWidget->findChild<QLabel*      >("MModeForecastTypeLB");
     MModePlotTypeLB          = m_TopLevelWidget->findChild<QLabel*      >("MModePlotTypeLB");
+    MModePlotTypeScaleLB     = m_TopLevelWidget->findChild<QLabel*      >("MModePlotScaleFactorLBL");
+    MModePlotTypeScaleLB->setToolTip("Set the scale of y-axis");
+    MModePlotTypeScaleLB->setStatusTip("Set the scale of y-axis");
     MModeKParamLB            = m_TopLevelWidget->findChild<QLabel*      >("MModeKParamLB");
     MModeKPctLB              = m_TopLevelWidget->findChild<QLabel*      >("MModeKPctLB");
+
 
     MModeDeterministicRB->setChecked(false);
     MModeStochasticRB->setChecked(true);
@@ -186,7 +192,7 @@ REMORA_UI::drawMultiSpeciesChart()
     // int NoUncertaintyRun = 0;
     int SpeciesNum         =  -1;
     int Theme              =   0;
-    double ScaleVal        = 1.0;
+    double ScaleVal        = getPlotScaleFactor();
     double HarvestValue;
     double remTime0Value  = 0;
     std::string ChartType = "Line";
@@ -236,7 +242,7 @@ REMORA_UI::drawMultiSpeciesChart()
         }
         LastHarvestYear = Harvest.size1()-1;
     } else if (isAbsoluteBiomass) {
-        YLabel = "Biomass (metric tons)";
+        YLabel = "Biomass (metric"+ getYLBLPlotScaleFactor(ScaleVal).toStdString()+ " tons)";
     } else if (isRelativeBiomass) {
         YLabel = "Relative Biomass";
     }
@@ -609,7 +615,7 @@ REMORA_UI::drawSingleSpeciesChart()
     int Theme = 0;
     int LastCatchYear      = 0;
     int NumObservedYears;
-    double ScaleVal         = 1.0;
+    double ScaleVal         = getPlotScaleFactor();
     double brightnessFactor = 0.2;
     double CatchValue;
     double remTime0Value    = 0;
@@ -618,7 +624,7 @@ REMORA_UI::drawSingleSpeciesChart()
     std::string LineStyle = "SolidLine";
     std::string MainTitle = "Forecast Run";
     std::string XLabel    = "Year";
-    std::string YLabel    = "Biomass (metric tons)";
+    std::string YLabel    = "Biomass (metric" + getYLBLPlotScaleFactor(ScaleVal).toStdString()  + " tons)";
     std::string Algorithm;
     std::string Minimizer;
     std::string ObjectiveCriterion;
@@ -1055,6 +1061,8 @@ REMORA_UI::enableWidgets(bool enable)
     MModeYAxisLockCB->setEnabled(enable);
     MModeForecastTypeLB->setEnabled(enable);
     MModePlotTypeLB->setEnabled(enable);
+    MModePlotTypeScaleLB->setEnabled(enable);
+    MModePlotTypeScaleCMB->setEnabled(enable);
     MModeMultiPlotTypePB->setEnabled(enable);
     if (isSingleSpecies()) {
         MModeMultiPlotTypePB->setEnabled(false);
@@ -1214,6 +1222,40 @@ REMORA_UI::getSpeciesNum()
     return MModeSpeciesCMB->currentIndex();
 }
 
+double
+REMORA_UI::getPlotScaleFactor()
+{
+    std::string ScaleStr = MModePlotTypeScaleCMB->currentText().toStdString();
+    double val = 1;
+    if (ScaleStr == "Default") {
+        val = 1.0;
+    } else if (ScaleStr == "000") {
+        val = 1000.0;
+    } else if (ScaleStr == "000 000") {
+        val = 1000000.0;
+    } else if (ScaleStr == "000 000 000") {
+        val = 1000000000.0;
+    }
+
+    return val;
+}
+
+QString
+REMORA_UI::getYLBLPlotScaleFactor(double scaleFactor)
+{
+    QString scaleStr = "";
+    if (scaleFactor == 1) {
+        return "";
+    } else if (scaleFactor == 1000) {
+        scaleStr = "10^3";
+    } else if (scaleFactor == 1000000) {
+        scaleStr = "10^6";
+    } else if (scaleFactor == 1000000000) {
+        scaleStr = "10^9";
+    }
+
+    return scaleStr;
+}
 QWidget*
 REMORA_UI::getTopLevelWidget()
 {
@@ -1836,6 +1878,16 @@ REMORA_UI::setSpeciesList(const QStringList& speciesList)
 }
 
 void
+REMORA_UI::InitializeScaleFactors()
+{
+    MModePlotTypeScaleCMB->addItem("Default");
+    MModePlotTypeScaleCMB->addItem("000");
+    MModePlotTypeScaleCMB->addItem("000 000");
+    MModePlotTypeScaleCMB->addItem("000 000 000");
+    MModePlotTypeScaleCMB->setToolTip("Sets the scale of the y-axis");
+    MModePlotTypeScaleCMB->setStatusTip("Sets the scale of the y-axis");
+}
+void
 REMORA_UI::setUncertaintyCarryingCapacity(QString arg1)
 {
     MModeKParamDL->setValue(arg1.toInt());
@@ -1903,6 +1955,8 @@ REMORA_UI::setupConnections()
             this,                     SLOT(callback_ForecastPlotTypeCMB(QString)));
     connect(MModeYAxisLockCB,         SIGNAL(toggled(bool)),
             this,                     SLOT(callback_YAxisLockedCB(bool)));
+    connect(MModePlotTypeScaleCMB,    SIGNAL(currentIndexChanged(QString)),
+            this,                     SLOT(callback_PlotTypeScaleFactorCMB()));
 }
 
 void
@@ -1971,9 +2025,12 @@ REMORA_UI::resetXAxis()
 void
 REMORA_UI::resetYAxis()
 {
+
     if (m_MaxYAxis > 0) {
         QValueAxis* axisY = qobject_cast<QValueAxis*>(m_ChartWidget->axes(Qt::Vertical).back());
+
         axisY->setMax(m_MaxYAxis);
+
         axisY->setTickCount(5);
     }
 }
@@ -2049,6 +2106,8 @@ REMORA_UI::callback_ForecastPlotTypeCMB(QString type)
     drawPlot();
     setScenarioChanged(true);
 }
+
+
 
 void
 REMORA_UI::callback_KeyPressed(QKeyEvent* event)
@@ -2270,6 +2329,12 @@ REMORA_UI::callback_SpeciesCMB(QString species)
     }
     drawPlot();
     setScenarioChanged(true);
+}
+
+void
+REMORA_UI::callback_PlotTypeScaleFactorCMB()
+{
+    drawPlot();
 }
 
 void

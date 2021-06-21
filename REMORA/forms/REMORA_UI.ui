@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1073</width>
-    <height>866</height>
+    <width>1427</width>
+    <height>1077</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,130 +19,149 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_18">
-   <item>
-    <widget class="QFrame" name="MModeFrame">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <property name="lineWidth">
-      <number>7</number>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12">
-      <property name="spacing">
-       <number>0</number>
+  <widget class="QFrame" name="MModeFrame">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>30</y>
+     <width>1241</width>
+     <height>1021</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="lineWidth">
+    <number>7</number>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_12">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QWidget" name="MModeWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
-      </property>
-      <property name="bottomMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <widget class="QWidget" name="MModeWidget" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_11">
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QWidget" name="MModeParentChartW" native="true">
-             <layout class="QVBoxLayout" name="verticalLayout_2">
-              <item>
-               <widget class="QWidget" name="MModeUpperPlotWidget" native="true">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="mouseTracking">
-                 <bool>false</bool>
-                </property>
-                <property name="toolTipDuration">
-                 <number>5000</number>
-                </property>
-                <property name="whatsThis">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Output Chart Area&lt;/span&gt;&lt;/p&gt;&lt;p&gt;After a forecast has successfully run, its output will be drawn here. The input controls can be found in the Controls section to the right and in the Harvest interactive line chart section below. &lt;/p&gt;&lt;p&gt;Chart output may be captured and saved by using the camera icon in the main toolbar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QWidget" name="MModeHarvestChartWidget" native="true">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>250</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>250</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>8</pointsize>
-                 </font>
-                </property>
-                <property name="focusPolicy">
-                 <enum>Qt::WheelFocus</enum>
-                </property>
-                <property name="whatsThis">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Harvest Interactive Chart&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This chart allows the user to interactively enter the future harvest data needed for the forecast model to run. The values on the chart correspond to scale values as they will apply to the last year's observed harvest values. For example, if we assume there are observed data from 1980-2000 and the harvest type is Catch, then the values on the plot refer to the scale factor for the year 2000's given Catch values.&lt;/p&gt;&lt;p&gt;A constant line at y-value = 1, depicted by 2 movable points, is initially presented to the user. This flat line signifies a constant future harvest rate. The user may move either end point or add (and then move) additional points by clicking on, and interacting with, the line.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Allowable Actions:&lt;br/&gt;&lt;/span&gt;&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Add point&lt;/span&gt;: Click on line&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Move point:&lt;/span&gt; Click and hold point, then drag&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Delete point:&lt;/span&gt; Click and hold point, then press delete button&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Reset line: &lt;/span&gt;Click and hold point, then press the &amp;quot;r&amp;quot; key&lt;/p&gt;&lt;p&gt;(where hold means to hold down the left mouse button)&lt;/p&gt;&lt;p&gt;N.B. The end points on the line may not be deleted.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_23">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>13</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_10">
+          <widget class="QWidget" name="MModeParentChartW" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QWidget" name="MModeUpperPlotWidget" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="mouseTracking">
+               <bool>false</bool>
+              </property>
+              <property name="toolTipDuration">
+               <number>5000</number>
+              </property>
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Output Chart Area&lt;/span&gt;&lt;/p&gt;&lt;p&gt;After a forecast has successfully run, its output will be drawn here. The input controls can be found in the Controls section to the right and in the Harvest interactive line chart section below. &lt;/p&gt;&lt;p&gt;Chart output may be captured and saved by using the camera icon in the main toolbar.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="MModeHarvestChartWidget" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>250</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>250</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>8</pointsize>
+               </font>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::WheelFocus</enum>
+              </property>
+              <property name="whatsThis">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Harvest Interactive Chart&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This chart allows the user to interactively enter the future harvest data needed for the forecast model to run. The values on the chart correspond to scale values as they will apply to the last year's observed harvest values. For example, if we assume there are observed data from 1980-2000 and the harvest type is Catch, then the values on the plot refer to the scale factor for the year 2000's given Catch values.&lt;/p&gt;&lt;p&gt;A constant line at y-value = 1, depicted by 2 movable points, is initially presented to the user. This flat line signifies a constant future harvest rate. The user may move either end point or add (and then move) additional points by clicking on, and interacting with, the line.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;Allowable Actions:&lt;br/&gt;&lt;/span&gt;&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Add point&lt;/span&gt;: Click on line&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Move point:&lt;/span&gt; Click and hold point, then drag&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Delete point:&lt;/span&gt; Click and hold point, then press delete button&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Reset line: &lt;/span&gt;Click and hold point, then press the &amp;quot;r&amp;quot; key&lt;/p&gt;&lt;p&gt;(where hold means to hold down the left mouse button)&lt;/p&gt;&lt;p&gt;N.B. The end points on the line may not be deleted.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_23">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>13</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QScrollArea" name="scrollArea">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>575</width>
+              <height>965</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_13">
              <item>
               <widget class="QGroupBox" name="MModeControlsGB">
                <property name="sizePolicy">
@@ -1332,6 +1351,46 @@
                  </layout>
                 </item>
                 <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_19">
+                  <item>
+                   <spacer name="horizontalSpacer_34">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="MModePlotScaleFactorLBL">
+                    <property name="text">
+                     <string>Scale Factor:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="MModPlotScaleFactorCMB"/>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_35">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
                  <widget class="Line" name="line_2">
                   <property name="minimumSize">
                    <size>
@@ -2301,7 +2360,7 @@
                      <enum>QLayout::SetFixedSize</enum>
                     </property>
                     <item>
-                     <widget class="QPushButton" name="MModeHarvestTypePB">
+                     <widget class="QPushButton" name="MModeHarvestTypeLBL">
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -2703,30 +2762,17 @@
                </layout>
               </widget>
              </item>
-             <item>
-              <spacer name="verticalSpacer_10">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
             </layout>
-           </item>
-          </layout>
+           </widget>
+          </widget>
          </item>
         </layout>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-  </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections/>
