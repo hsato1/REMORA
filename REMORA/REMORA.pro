@@ -9,7 +9,6 @@ QT       += core gui charts sql datavisualization uitools
 TARGET = REMORA
 TEMPLATE = lib
 
-# PRECOMPILED_HEADER = /home/rklasky/workspaceQtCreator/REMORA/REMORA/precompiled_header.h
 PRECOMPILED_HEADER = /Users/hiro/Internship/NoaaInternshipGit/REMORA/REMORA/precompiled_header.h
 CONFIG += precompile_header
 
@@ -45,30 +44,6 @@ unix {
 
 INCLUDEPATH += /Users/hiro/Downloads/boost_1_76_0
 
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfUtilities.1.0.0
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfUtilities.1.0.0
-else:unix: LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfUtilities.1.0.0
-
-INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
-DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
-
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfDatabase.1.0.0
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfDatabase.1.0.0
-else:unix: LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfDatabase.1.0.0
-
-INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfDatabase
-DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfDatabase
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfCharts.1.0.0
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfCharts.1.0.0
-else:unix: LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfCharts.1.0.0
-
-INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
-DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
-
-
 #win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_1_GCC_64bit-Release/release/ -lnmfUtilities
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_1_GCC_64bit-Release/debug/ -lnmfUtilities
 #else:unix: LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_1_GCC_64bit-Release/ -lnmfUtilities
@@ -91,6 +66,23 @@ DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
 #DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
 
 
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfUtilities.1.0.0
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfUtilities.1.0.0
+else:unix: LIBS += -L$$PWD/../../../builds/build-nmfUtilities-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfUtilities.1.0.0
 
+INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
+DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfUtilities
 
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfDatabase.1.0.0
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfDatabase.1.0.0
+else:unix: LIBS += -L$$PWD/../../../builds/build-nmfDatabase-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfDatabase.1.0.0
 
+INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfDatabase
+DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfDatabase
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_2_clang_64bit-Release/release/ -lnmfCharts.1.0.0
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_2_clang_64bit-Release/debug/ -lnmfCharts.1.0.0
+else:unix: LIBS += -L$$PWD/../../../builds/build-nmfCharts-Desktop_Qt_5_15_2_clang_64bit-Release/ -lnmfCharts.1.0.0
+
+INCLUDEPATH += $$PWD/../../nmfSharedUtilities/nmfCharts
+DEPENDPATH += $$PWD/../../nmfSharedUtilities/nmfCharts

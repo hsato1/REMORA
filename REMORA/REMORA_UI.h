@@ -70,6 +70,7 @@ private:
     QCheckBox*    MModeYAxisLockCB;
     QComboBox*    MModeSpeciesCMB;
     QComboBox*    MModeForecastPlotTypeCMB;
+    QComboBox*    MModePlotScaleFactorCMB;
     QDial*        MModeRParamDL;
     QDial*        MModeKParamDL;
     QDial*        MModeHParamDL;
@@ -77,6 +78,7 @@ private:
     QLabel*       MModeForecastPlotTypeLB;
     QLabel*       MModeForecastTypeLB;
     QLabel*       MModePlotTypeLB;
+    QLabel*       MModePlotScaleFactorLBL;
     QLabel*       MModePctMSYLBL;
     QLabel*       MModeKParamLB;
     QLabel*       MModeKPctLB;
@@ -189,6 +191,8 @@ private:
     QList<QPointF> getScaleFactorPoints(const int& speciesNum);
     QString getScenarioName();
     int getSpeciesNum();
+    double getPlotScaleFactor();
+    QString getYLBLPlotScaleFactor(double scaleFactor);
     void getYearRange(int& firstYear, int& lastYear);
     bool isAbsoluteBiomassPlotType();
     bool isFishingMortalityPlotType();
@@ -218,6 +222,7 @@ private:
     void setDeterministic(QString arg1);
     void setForecastPlotType(QString arg1);
     void setMaxYScaleFactor(QString maxY);
+    void InitializeScaleFactors();
     void setNumRunsPerForecast(QString numRuns);
     void setNumYearsPerRun(QString numYears);
     void setScenarioChanged(bool state);
@@ -289,6 +294,7 @@ public:
     ~REMORA_UI();
 
     void setProjectSettingsConfig(std::string modelName);
+    std::string getForecastName();
 
     /**
      * @brief getScaleValueFromPlot : returns harvest scale value for the passed in species and year
@@ -333,6 +339,8 @@ public:
      */
     void setSpeciesList(const QStringList& speciesList);
     void setHarvestType(QString arg1);
+
+
 
 
 public Q_SLOTS:
@@ -432,6 +440,14 @@ public Q_SLOTS:
      * @brief Callback invoked when the user presses the stochastic radio button
      * @param pressed : state of the stochastic radio button
      */
+    void callback_PlotTypeScaleFactorCMB();
+
+    /**
+     * @brief Callback involked when the user modifies the Scale Factor Combobox, call the drawPlot
+     *        to rescale the y axis.
+     * @param
+     */
+
     void callback_StochasticRB(bool pressed);
     /**
      * @brief Callback invoked when the user modifies the Harvest Uncertainty dial

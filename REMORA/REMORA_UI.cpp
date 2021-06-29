@@ -60,12 +60,18 @@ REMORA_UI::REMORA_UI(
     MModeHarvestTypeLBL      = m_TopLevelWidget->findChild<QLabel*      >("MModeHarvestTypeLBL");
     MModePctMSYLBL           = m_TopLevelWidget->findChild<QLabel*      >("MModePctMSYLBL");
     MModeForecastPlotTypeCMB = m_TopLevelWidget->findChild<QComboBox*   >("MModeForecastPlotTypeCMB");
+    MModePlotScaleFactorCMB  = m_TopLevelWidget->findChild<QComboBox*   >("MModePlotScaleFactorCMB");
+    InitializeScaleFactors();
     MModeForecastPlotTypeLB  = m_TopLevelWidget->findChild<QLabel*      >("MModeForecastPlotTypeLB");
     MModeYAxisLockCB         = m_TopLevelWidget->findChild<QCheckBox*   >("MModeYAxisLockCB");
     MModeForecastTypeLB      = m_TopLevelWidget->findChild<QLabel*      >("MModeForecastTypeLB");
     MModePlotTypeLB          = m_TopLevelWidget->findChild<QLabel*      >("MModePlotTypeLB");
+    MModePlotScaleFactorLBL  = m_TopLevelWidget->findChild<QLabel*      >("MModePlotScaleFactorLBL");
+    MModePlotScaleFactorLBL->setToolTip("Sets the scale of y-axis");
+    MModePlotScaleFactorLBL->setStatusTip("Sets the scale of y-axis");
     MModeKParamLB            = m_TopLevelWidget->findChild<QLabel*      >("MModeKParamLB");
     MModeKPctLB              = m_TopLevelWidget->findChild<QLabel*      >("MModeKPctLB");
+
 
     MModeDeterministicRB->setChecked(false);
     MModeStochasticRB->setChecked(true);
@@ -186,7 +192,7 @@ REMORA_UI::drawMultiSpeciesChart()
     // int NoUncertaintyRun = 0;
     int SpeciesNum         =  -1;
     int Theme              =   0;
-    double ScaleVal        = 1.0;
+    double ScaleVal        = getPlotScaleFactor();
     double HarvestValue;
     double remTime0Value  = 0;
     std::string ChartType = "Line";
@@ -207,7 +213,7 @@ REMORA_UI::drawMultiSpeciesChart()
     boost::numeric::ublas::matrix<double> ChartLine;
     boost::numeric::ublas::matrix<double> Harvest;
     std::vector<std::string> SpeNames;
-    std::vector<bool> GridLines(true,true);
+    std::vector<bool> GridLines = {true,true};
     std::vector<boost::numeric::ublas::matrix<double> > ForecastBiomass;
     QList<QColor> LineColors;
 
@@ -227,7 +233,7 @@ REMORA_UI::drawMultiSpeciesChart()
     NumSpecies = SpeNames.size();
 
     if (isFishingMortality) {
-        YLabel = "Fishing Mortality (C/Bc)";
+        YLabel = nmfConstantsMSSPM::OutputChartExploitationCatchTitle.toStdString();
         if (! m_DatabasePtr->getTimeSeriesData(
                     m_TopLevelWidget,m_Logger,m_ProjectSettingsConfig,"","",
                     QString::fromStdString(m_HarvestType).replace("Forecast","").toStdString(),
@@ -236,7 +242,7 @@ REMORA_UI::drawMultiSpeciesChart()
         }
         LastHarvestYear = Harvest.size1()-1;
     } else if (isAbsoluteBiomass) {
-        YLabel = "Biomass (metric tons)";
+        YLabel = "Biomass (" + getYLBLPlotScaleFactor(ScaleVal).toStdString() + "metric tons)";
     } else if (isRelativeBiomass) {
         YLabel = "Relative Biomass";
     }
@@ -419,7 +425,7 @@ REMORA_UI::drawMSYLines()
     } else if (isMultiPlot()) {
         SpeciesNum =  0;
         if (isAbsoluteBiomassPlotType()) {
-            YLabel = "Biomass (mt)";
+            YLabel = "Biomass ("+getYLBLPlotScaleFactor(getPlotScaleFactor()).toStdString() +  "mt)";
         } else if (isRelativeBiomassPlotType()) {
             YLabel = "Rel Biomass";
         } else if (isFishingMortalityPlotType()) {
@@ -493,10 +499,10 @@ REMORA_UI::drawMSYLines(
         const bool& ShowLegend,
         const double& Pct)
 {
-    bool isFishingMortality = (getForecastPlotType() == "Fishing Mortality");
+    bool isFishingMortality = (getForecastPlotType() == nmfConstantsMSSPM::OutputChartExploitation);
     int Theme = 0;
     double MSYValue;
-    double ScaleVal = 1.0;
+    double ScaleVal = getPlotScaleFactor(); // 1.0
     std::string queryStr;
     std::string LineStyle    = "DashedLine";
     std::string ChartType    = "Line";
@@ -504,7 +510,7 @@ REMORA_UI::drawMSYLines(
     boost::numeric::ublas::matrix<double> ChartMSYData;
     std::map<std::string, std::vector<std::string> > dataMap;
     std::vector<std::string> fields;
-    std::vector<bool> GridLines(true,true);
+    std::vector<bool> GridLines = {true,true};
     QColor LineColor = QColor(nmfConstants::LineColors[0].c_str());
 
     if (Pct != 1.0) {
@@ -609,7 +615,7 @@ REMORA_UI::drawSingleSpeciesChart()
     int Theme = 0;
     int LastCatchYear      = 0;
     int NumObservedYears;
-    double ScaleVal         = 1.0;
+    double ScaleVal         = getPlotScaleFactor();
     double brightnessFactor = 0.2;
     double CatchValue;
     double remTime0Value    = 0;
@@ -618,7 +624,7 @@ REMORA_UI::drawSingleSpeciesChart()
     std::string LineStyle = "SolidLine";
     std::string MainTitle = "Forecast Run";
     std::string XLabel    = "Year";
-    std::string YLabel    = "Biomass (metric tons)";
+    std::string YLabel    = "Biomass (" + getYLBLPlotScaleFactor(ScaleVal).toStdString() + "metric tons)";
     std::string Algorithm;
     std::string Minimizer;
     std::string ObjectiveCriterion;
@@ -640,7 +646,7 @@ REMORA_UI::drawSingleSpeciesChart()
     std::vector<boost::numeric::ublas::matrix<double> > ChartLinesMonteCarloMultiPlot;
     std::vector<boost::numeric::ublas::matrix<double> > ChartLineSpans;
     boost::numeric::ublas::matrix<double> Harvest;
-    std::vector<bool> GridLines(true,true);
+    std::vector<bool> GridLines = {true,true};
     std::vector<boost::numeric::ublas::matrix<double> > ForecastBiomass;
     std::vector<boost::numeric::ublas::matrix<double> > ForecastBiomassMonteCarlo;
     std::vector<std::string> SpeNames;
@@ -660,7 +666,7 @@ REMORA_UI::drawSingleSpeciesChart()
     NumObservedYears = EndYear-StartYear;
 
     if (isFishingMortality) {
-        YLabel = "Fishing Mortality (C/Bc)";
+        YLabel = nmfConstantsMSSPM::OutputChartExploitationCatchTitle.toStdString();
         if (! m_DatabasePtr->getTimeSeriesData(
                     m_TopLevelWidget,m_Logger,m_ProjectSettingsConfig,"","",
                     QString::fromStdString(m_HarvestType).replace("Forecast","").toStdString(),
@@ -721,7 +727,7 @@ REMORA_UI::drawSingleSpeciesChart()
 //                              SpeNames[species] + " at Year = " + std::to_string(time+StartForecastYear);
 //                       m_Logger->logMsg(nmfConstants::Warning,msg);
                     } else {
-                        ChartLinesMonteCarlo(time,line) = CatchValue/ForecastBiomassMonteCarlo[line](time,species);
+                        ChartLinesMonteCarlo(time,line) = CatchValue/(ForecastBiomassMonteCarlo[line](time,species)/ScaleVal);
                     }
                 } else {
                     ChartLinesMonteCarlo(time,line) = ForecastBiomassMonteCarlo[line](time,species)/ScaleVal;
@@ -756,7 +762,7 @@ REMORA_UI::drawSingleSpeciesChart()
 //                             SpeNames[species] + " at Year = " + std::to_string(time+StartForecastYear);
 //                      m_Logger->logMsg(nmfConstants::Warning,msg);
                     } else {
-                        ChartLine(time,0) = CatchValue/ForecastBiomass[0](time,species);
+                        ChartLine(time,0) = CatchValue/(ForecastBiomass[0](time,species)/ScaleVal);
                     }
                 } else {
                     ChartLine(time,0) = ForecastBiomass[0](time,species)/ScaleVal;
@@ -824,6 +830,8 @@ REMORA_UI::drawSingleSpeciesChart()
         }
         //YLabelMultiPlot = (isFishingMortality) ? "F Mortality (C/Bc)" : "Biomass (mt)";
         for (QChart* chart : m_Charts) {
+            // This will set a chart background to a color. Revisit this logic if want to change the dark settings for a chart
+            //chart->setBackgroundBrush(QBrush(QColor(100,100,100)));
 
             QMargins chartMargins(8, 10, 20, 10);
             m_ChartWidget->setMargins(chartMargins);
@@ -1055,6 +1063,8 @@ REMORA_UI::enableWidgets(bool enable)
     MModeYAxisLockCB->setEnabled(enable);
     MModeForecastTypeLB->setEnabled(enable);
     MModePlotTypeLB->setEnabled(enable);
+    MModePlotScaleFactorLBL->setEnabled(enable);
+    MModePlotScaleFactorCMB->setEnabled(enable);
     MModeMultiPlotTypePB->setEnabled(enable);
     if (isSingleSpecies()) {
         MModeMultiPlotTypePB->setEnabled(false);
@@ -1214,6 +1224,41 @@ REMORA_UI::getSpeciesNum()
     return MModeSpeciesCMB->currentIndex();
 }
 
+double
+REMORA_UI::getPlotScaleFactor()
+{
+    std::string ScaleStr = MModePlotScaleFactorCMB->currentText().toStdString();
+    double val = 1;
+    if (ScaleStr == "Default") {
+        val = 1.0;
+    } else if (ScaleStr == "000") {
+        val = 1000.0;
+    } else if (ScaleStr == "000 000") {
+        val = 1000000.0;
+    } else if (ScaleStr == "000 000 000") {
+        val = 1000000000.0;
+    }
+
+    return val;
+}
+
+QString
+REMORA_UI::getYLBLPlotScaleFactor(double scaleFactor)
+{
+    QString scaleStr = "";
+    if (scaleFactor == 1) {
+        return "";
+    } else if (scaleFactor == 1000) {
+        scaleStr = "10^3 ";
+    } else if (scaleFactor == 1000000) {
+        scaleStr = "10^6 ";
+    } else if (scaleFactor == 1000000000) {
+        scaleStr = "10^9 ";
+    }
+
+    return scaleStr;
+}
+
 QWidget*
 REMORA_UI::getTopLevelWidget()
 {
@@ -1272,7 +1317,7 @@ REMORA_UI::isDeterministic()
 bool
 REMORA_UI::isFishingMortalityPlotType()
 {
-    return (MModeForecastPlotTypeCMB->currentText() == "Fishing Mortality");
+    return (MModeForecastPlotTypeCMB->currentText() == nmfConstantsMSSPM::OutputChartExploitation);
 }
 
 bool
@@ -1691,6 +1736,12 @@ REMORA_UI::setDeterministic(QString isChecked)
    MModeStochasticRB->setChecked(   isChecked == "0");
 }
 
+std::string
+REMORA_UI::getForecastName()
+{
+    return m_ForecastName;
+}
+
 void
 REMORA_UI::setForecastName(QString forecastName)
 {
@@ -1836,6 +1887,16 @@ REMORA_UI::setSpeciesList(const QStringList& speciesList)
 }
 
 void
+REMORA_UI::InitializeScaleFactors()
+{
+    MModePlotScaleFactorCMB->addItem("Default");
+    MModePlotScaleFactorCMB->addItem("000");
+    MModePlotScaleFactorCMB->addItem("000 000");
+    MModePlotScaleFactorCMB->addItem("000 000 000");
+    MModePlotScaleFactorCMB->setToolTip("Sets the scale of the y-axis");
+    MModePlotScaleFactorCMB->setStatusTip("Sets the scale of the y-axis");
+}
+void
 REMORA_UI::setUncertaintyCarryingCapacity(QString arg1)
 {
     MModeKParamDL->setValue(arg1.toInt());
@@ -1903,6 +1964,8 @@ REMORA_UI::setupConnections()
             this,                     SLOT(callback_ForecastPlotTypeCMB(QString)));
     connect(MModeYAxisLockCB,         SIGNAL(toggled(bool)),
             this,                     SLOT(callback_YAxisLockedCB(bool)));
+    connect(MModePlotScaleFactorCMB,  SIGNAL(currentIndexChanged(QString)),
+            this,                     SLOT(callback_PlotTypeScaleFactorCMB()));
 }
 
 void
@@ -1971,9 +2034,12 @@ REMORA_UI::resetXAxis()
 void
 REMORA_UI::resetYAxis()
 {
+
     if (m_MaxYAxis > 0) {
         QValueAxis* axisY = qobject_cast<QValueAxis*>(m_ChartWidget->axes(Qt::Vertical).back());
+
         axisY->setMax(m_MaxYAxis);
+
         axisY->setTickCount(5);
     }
 }
@@ -2032,23 +2098,30 @@ REMORA_UI::callback_DeterministicRB(bool pressed)
 void
 REMORA_UI::callback_ForecastPlotTypeCMB(QString type)
 {
-    bool showMSYCheckboxes = couldShowMSYCB();
+    bool showMSYCheckboxes  = couldShowMSYCB();
+    bool isBiomassAbsolute  = (type == "Biomass (absolute)");
+    bool isBiomassRelative  = (type == "Biomass (relative)");
+    bool isFishingMortality = (type == nmfConstantsMSSPM::OutputChartExploitation);
 
-    if (type == "Biomass (absolute)") {
+    MModePlotScaleFactorCMB->setEnabled(isBiomassAbsolute | isFishingMortality);
+    MModePlotScaleFactorLBL->setEnabled(isBiomassAbsolute | isFishingMortality);
+    if (isBiomassAbsolute) {
         MModeShowMSYCB->setEnabled(showMSYCheckboxes);
         MModePctMSYCB->setEnabled(showMSYCheckboxes);
-    } else if (type == "Biomass (relative)") {
+    } else if (isBiomassRelative) {
         MModeShowMSYCB->setEnabled(false);
         MModeShowMSYCB->setChecked(false);
         MModePctMSYCB->setEnabled(false);
         MModePctMSYCB->setChecked(false);
-    } else if (type == "Fishing Mortality") {
+    } else if (isFishingMortality) {
         MModeShowMSYCB->setEnabled(showMSYCheckboxes);
         MModePctMSYCB->setEnabled(showMSYCheckboxes);
     }
     drawPlot();
     setScenarioChanged(true);
 }
+
+
 
 void
 REMORA_UI::callback_KeyPressed(QKeyEvent* event)
@@ -2273,6 +2346,12 @@ REMORA_UI::callback_SpeciesCMB(QString species)
 }
 
 void
+REMORA_UI::callback_PlotTypeScaleFactorCMB()
+{
+    drawPlot();
+}
+
+void
 REMORA_UI::callback_StochasticRB(bool pressed)
 {
     MModeDeterministicRB->setChecked(! pressed);
@@ -2361,4 +2440,3 @@ REMORA_UI::callback_YearsPerRunSL(int value)
     resetYearsPerRunOnScaleFactorPlot();
     setScenarioChanged(true);
 }
-
