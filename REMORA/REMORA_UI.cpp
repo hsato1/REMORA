@@ -69,6 +69,7 @@ REMORA_UI::REMORA_UI(
     MModePlotScaleFactorLBL  = m_TopLevelWidget->findChild<QLabel*      >("MModePlotScaleFactorLBL");
     MModePlotScaleFactorLBL->setToolTip("Sets the scale of y-axis");
     MModePlotScaleFactorLBL->setStatusTip("Sets the scale of y-axis");
+
     MModeKParamLB            = m_TopLevelWidget->findChild<QLabel*      >("MModeKParamLB");
     MModeKPctLB              = m_TopLevelWidget->findChild<QLabel*      >("MModeKPctLB");
 
@@ -242,7 +243,9 @@ REMORA_UI::drawMultiSpeciesChart()
         }
         LastHarvestYear = Harvest.size1()-1;
     } else if (isAbsoluteBiomass) {
+
         YLabel = "Biomass (" + getYLBLPlotScaleFactor(ScaleVal).toStdString() + "metric tons)";
+
     } else if (isRelativeBiomass) {
         YLabel = "Relative Biomass";
     }
@@ -625,6 +628,7 @@ REMORA_UI::drawSingleSpeciesChart()
     std::string MainTitle = "Forecast Run";
     std::string XLabel    = "Year";
     std::string YLabel    = "Biomass (" + getYLBLPlotScaleFactor(ScaleVal).toStdString() + "metric tons)";
+
     std::string Algorithm;
     std::string Minimizer;
     std::string ObjectiveCriterion;
@@ -1063,8 +1067,10 @@ REMORA_UI::enableWidgets(bool enable)
     MModeYAxisLockCB->setEnabled(enable);
     MModeForecastTypeLB->setEnabled(enable);
     MModePlotTypeLB->setEnabled(enable);
+
     MModePlotScaleFactorLBL->setEnabled(enable);
     MModePlotScaleFactorCMB->setEnabled(enable);
+
     MModeMultiPlotTypePB->setEnabled(enable);
     if (isSingleSpecies()) {
         MModeMultiPlotTypePB->setEnabled(false);
@@ -1227,7 +1233,9 @@ REMORA_UI::getSpeciesNum()
 double
 REMORA_UI::getPlotScaleFactor()
 {
+
     std::string ScaleStr = MModePlotScaleFactorCMB->currentText().toStdString();
+
     double val = 1;
     if (ScaleStr == "Default") {
         val = 1.0;
@@ -1254,6 +1262,7 @@ REMORA_UI::getYLBLPlotScaleFactor(double scaleFactor)
         scaleStr = "10^6 ";
     } else if (scaleFactor == 1000000000) {
         scaleStr = "10^9 ";
+
     }
 
     return scaleStr;
@@ -1889,12 +1898,14 @@ REMORA_UI::setSpeciesList(const QStringList& speciesList)
 void
 REMORA_UI::InitializeScaleFactors()
 {
+
     MModePlotScaleFactorCMB->addItem("Default");
     MModePlotScaleFactorCMB->addItem("000");
     MModePlotScaleFactorCMB->addItem("000 000");
     MModePlotScaleFactorCMB->addItem("000 000 000");
     MModePlotScaleFactorCMB->setToolTip("Sets the scale of the y-axis");
     MModePlotScaleFactorCMB->setStatusTip("Sets the scale of the y-axis");
+
 }
 void
 REMORA_UI::setUncertaintyCarryingCapacity(QString arg1)
@@ -1964,6 +1975,7 @@ REMORA_UI::setupConnections()
             this,                     SLOT(callback_ForecastPlotTypeCMB(QString)));
     connect(MModeYAxisLockCB,         SIGNAL(toggled(bool)),
             this,                     SLOT(callback_YAxisLockedCB(bool)));
+
     connect(MModePlotScaleFactorCMB,  SIGNAL(currentIndexChanged(QString)),
             this,                     SLOT(callback_PlotTypeScaleFactorCMB()));
 }
